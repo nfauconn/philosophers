@@ -6,7 +6,7 @@
 /*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 18:22:26 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/02 11:51:02 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/04 17:36:34 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ static long	fill_data(char *arg)
 {
 	long	data;
 
-	data = ft_atoll(arg);
+	data = ft_atoi(arg);
 	if (data == -1)
 		return (0);
-	return ((size_t)data);
+	return ((int)data);
 }
 
 int	parse_ok(t_data *data, int argc, char **argv)

@@ -6,13 +6,13 @@
 /*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 15:56:17 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/01 17:10:07 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/04 17:18:43 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long long	ft_atoll(char *str)
+int	ft_atoi(char *str)
 {
 	int		i;
 	t_ull	nb;
@@ -24,7 +24,7 @@ long long	ft_atoll(char *str)
 		nb = nb * 10 + *str - 48;
 		str++;
 	}
-	if (nb > 4294967295)
+	if (nb > 2147483647)
 		return (-1);
 	return (nb);
 }

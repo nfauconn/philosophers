@@ -6,7 +6,7 @@
 /*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 12:12:23 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/02 14:04:09 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/06 16:47:36 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv)
 	{
 		if (argc == 6)
 			data.is_number_of_times = true;
-		start(&data, argv);
+		start(&data);
 	}
 	else
 		error_arg("wrong arguments");
