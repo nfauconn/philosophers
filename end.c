@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   end.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/29 12:12:23 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/07 16:51:36 by user42           ###   ########.fr       */
+/*   Created: 2022/04/07 17:17:51 by user42            #+#    #+#             */
+/*   Updated: 2022/04/07 17:23:33 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+int	join_threads(t_data *data, t_philo **philo, pthread_t **threads)
 {
-	t_data	data;
-	t_bool	ret;
+	int	i;
 
-	init_data(&data);
-	if ((argc == 5 || argc == 6) && parse_ok(&data, argc, argv))
+	i = 0;
+	while (i < data->nb_philo)
 	{
-		if (argc == 5)
-			data.nb_meals = -1;
-		ret = start(&data);
-		if (ret == FAILURE)
+		if (pthread_join(*threads[i], NULL))
 			return (FAILURE);
+		printf("thread %d has finished \n", i);
+		i++;
 	}
-	else
-		error_arg("wrong arguments");
-	return (0);
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		pthread_mutex_destroy(&philo[i]->fork);
+		i++;
+	}
+	return (SUCCESS);
 }

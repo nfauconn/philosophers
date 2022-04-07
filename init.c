@@ -3,29 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 15:17:26 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/06 18:08:40 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/07 16:58:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_philo(t_philo *philo, int i)
+int	create_threads(t_data *data, t_philo **philo, pthread_t **threads)
 {
-	philo->pos = i + 1;
-	pthread_mutex_init(&philo->fork, NULL);
+	int	i;
+
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		if (pthread_create(threads[i], NULL, &routine, (void*)philo[i]))
+			return (FAILURE);
+		printf("thread %d has started \n", philo[i]->pos);
+		i++;
+
+	}
+	return (SUCCESS);
+}
+
+int	init_philo(t_data *data, t_philo **philo)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		philo[i]->pos = i + 1;
+		pthread_mutex_init(&philo[i]->fork, NULL);
+		if (i == 0)
+			philo[i]->fork2 = NULL;
+		else
+			philo[i]->fork2 = &philo[i - 1]->fork;
+	}
+	return (SUCCESS);
 }
 
 void	init_data(t_data *data)
 {
-	data->number_of_philosophers = 0;
-	data->time_to_die = 0;
-	data->time_to_eat = 0;
-	data->time_to_sleep = 0;
-	data->is_number_of_times = 0;
-	data->number_of_times_each_philosopher_must_eat = 0;
+	data->nb_philo = 0;
+	data->t_die = 0;
+	data->t_eat = 0;
+	data->t_sleep = 0;
+	data->nb_meals = 0;
 }
 
 /* 

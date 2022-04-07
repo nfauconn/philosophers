@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 12:12:57 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/06 17:50:34 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/07 17:23:57 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,32 +26,35 @@ typedef unsigned long long	t_ull;
 
 typedef enum s_bool
 {
-	true = 1,
-	false = 0
+	FAILURE = 1,
+	SUCCESS = 0
 }	t_bool;
 
 typedef struct s_philo
 {
 	int				pos;
 	pthread_mutex_t	fork;
+	pthread_mutex_t	*fork2;
 }	t_philo;
 
 typedef struct s_data
 {
-	int		number_of_philosophers;
-	int		time_to_die;
-	int		time_to_eat;
-	int		time_to_sleep;
-	t_bool	is_number_of_times;
-	int		number_of_times_each_philosopher_must_eat;
+	int		nb_philo;
+	int		t_die;
+	int		t_eat;
+	int		t_sleep;
+	int		nb_meals;
 }	t_data;
 
+int			create_threads(t_data *data, t_philo **philo, pthread_t **threads);
 void		error_arg(char *s);
 int			ft_atoi(char *str);
 void		init_data(t_data *data);
-void		init_philo(t_philo *philo, int i);
+int			init_philo(t_data *data, t_philo **philo);
+int			join_threads(t_data *data, t_philo **philo, pthread_t **threads);
 int			main(int argc, char **argv);
 int			parse_ok(t_data *data, int argc, char **argv);
+void		*routine(void *ptr);
 int			start(t_data *data);
 
 #endif

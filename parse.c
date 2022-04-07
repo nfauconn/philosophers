@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 18:22:26 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/04 17:36:34 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/07 16:09:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,15 @@ int	parse_ok(t_data *data, int argc, char **argv)
 {
 	if (!parse(argc, argv))
 		return (0);
-	data->number_of_philosophers = fill_data(argv[1]);
-	data->time_to_die = fill_data(argv[2]);
-	data->time_to_eat = fill_data(argv[3]);
-	data->time_to_sleep = fill_data(argv[4]);
+	data->nb_philo = fill_data(argv[1]);
+	data->t_die = fill_data(argv[2]);
+	data->t_eat = fill_data(argv[3]);
+	data->t_sleep = fill_data(argv[4]);
 	if (argc == 6)
-		data->number_of_times_each_philosopher_must_eat = fill_data(argv[5]);
-	if (data->number_of_philosophers == 0 || data->time_to_die == 0
-		|| data->time_to_eat == 0 || data->time_to_sleep == 0
-		|| data->number_of_times_each_philosopher_must_eat == 0)
+		data->nb_meals = fill_data(argv[5]);
+	if (data->nb_philo == 0 || data->t_die == 0
+		|| data->t_eat == 0 || data->t_sleep == 0
+		|| data->nb_meals == 0)
 		return (0);
 	return (1);
 }
