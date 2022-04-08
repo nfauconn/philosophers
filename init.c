@@ -3,28 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 15:17:26 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/08 14:00:49 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:05:34 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	init_philo(t_data data, t_philo *philo)
+void	init_philo(t_data data, t_philo *philo)
 {
 	int		i;
 	i = 0;
 	while (i < data.nb_philo)
 	{
 		philo[i].pos = i + 1;
-		printf("philo[i].pos = %d\n", philo[i].pos);
 		pthread_mutex_init(&philo[i].fork_l, NULL);
 		pthread_mutex_init(&philo[i].fork_r, NULL);
 		i++;
 	}
-	return (SUCCESS);
 }
 
 void	init_data(t_data *data)

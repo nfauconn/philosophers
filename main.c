@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 12:12:23 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/08 13:51:46 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:02:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ int	main(int argc, char **argv)
 		return (FAILURE); */
 	if (simulation(data, philo) == FAILURE)
 		return (FAILURE);
-	free_and_destroy(&data, philo);
+	free_and_destroy(philo);
 	return (SUCCESS);
 }

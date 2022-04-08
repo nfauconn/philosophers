@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 12:12:57 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/08 14:00:11 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:05:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ typedef struct s_data
 	int		nb_meals;
 }	t_data;
 
-int			create_threads(t_data data, t_philo *philo, pthread_t **threads);
+int			create_threads(t_data data, t_philo *philo, pthread_t *threads);
 void		error_arg(char *s);
-void		free_and_destroy(t_data *data, t_philo *philo);
+void		free_and_destroy(t_philo *philo);
 int			ft_atoi(char *str);
 void		init_data(t_data *data);
-int			init_philo(t_data data, t_philo *philo);
-int			join_threads(t_data data, t_philo *philo, pthread_t **threads);
+void		init_philo(t_data data, t_philo *philo);
+int			join_threads(t_data data, t_philo *philo, pthread_t *threads);
 int			main(int argc, char **argv);
 int			parse_fill(t_data *data, int argc, char **argv);
 void		*routine(void *ptr);
