@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 18:22:26 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/07 16:09:15 by user42           ###   ########.fr       */
+/*   Updated: 2022/04/08 10:59:07 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static long	fill_data(char *arg)
 	return ((int)data);
 }
 
-int	parse_ok(t_data *data, int argc, char **argv)
+int	parse_fill(t_data *data, int argc, char **argv)
 {
 	if (!parse(argc, argv))
 		return (0);
@@ -55,6 +55,6 @@ int	parse_ok(t_data *data, int argc, char **argv)
 	if (data->nb_philo == 0 || data->t_die == 0
 		|| data->t_eat == 0 || data->t_sleep == 0
 		|| data->nb_meals == 0)
-		return (0);
-	return (1);
+		return (FAILURE);
+	return (SUCCESS);
 }

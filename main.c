@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 12:12:23 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/07 16:51:36 by user42           ###   ########.fr       */
+/*   Updated: 2022/04/08 13:51:46 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,23 @@
 
 int	main(int argc, char **argv)
 {
-	t_data	data;
-	t_bool	ret;
+	t_data		data;
+	t_philo		*philo;
 
 	init_data(&data);
-	if ((argc == 5 || argc == 6) && parse_ok(&data, argc, argv))
+	if (argc < 5 || argc > 6 || parse_fill(&data, argc, argv) == FAILURE)
 	{
-		if (argc == 5)
-			data.nb_meals = -1;
-		ret = start(&data);
-		if (ret == FAILURE)
-			return (FAILURE);
-	}
-	else
 		error_arg("wrong arguments");
-	return (0);
+		return (FAILURE);
+	}
+	philo = (t_philo *)malloc(sizeof(t_philo) * (data.nb_philo + 1));
+	if (!philo)
+		return (FAILURE);
+	init_philo(data, philo);
+/* 	if (!philo)
+		return (FAILURE); */
+	if (simulation(data, philo) == FAILURE)
+		return (FAILURE);
+	free_and_destroy(&data, philo);
+	return (SUCCESS);
 }
