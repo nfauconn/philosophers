@@ -6,7 +6,7 @@
 /*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 12:12:23 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/14 17:51:54 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/14 19:41:03 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ int	main(int argc, char **argv)
 	if (!philo)
 		return (ft_error("malloc failure"));
 	init_philo(&data, philo);
-	threads = (pthread_t *)malloc(sizeof(pthread_t) * (data.nb_philo + 1));
+	threads = (pthread_t *)malloc(sizeof(pthread_t) * (data.nb_philo));
 	if (!threads)
 		return (ft_error_exit(&data, philo, threads, "thread mem alloc failed"));
 	if (simulation(&data, philo, threads) == FAILURE)
-		return (ft_error_exit(&data, philo, threads, "simulation failure"));
+		return (FAILURE);
 	free_and_destroy(&data, philo);
 	free(threads);
 	return (SUCCESS);

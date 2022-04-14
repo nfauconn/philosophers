@@ -6,7 +6,7 @@
 /*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 12:03:49 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/14 17:51:32 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/14 19:37:53 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ void	ft_sleep(t_philo *philo, int time)
 	}
 	if (ft_get_time(philo->data->t0) - philo->start_die >= (t_ull) philo->data->t_die)
 	{
-/* 		pthread_mutex_lock(&philo->data->death_mutex);
- */		philo->data->death = 1;
+		philo->data->death = 1;
 		ft_print(philo, "is dead\n");
 	}
 }
