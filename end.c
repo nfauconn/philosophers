@@ -6,7 +6,7 @@
 /*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 17:17:51 by user42            #+#    #+#             */
-/*   Updated: 2022/04/14 15:50:26 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:25:42 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,11 @@ void	free_and_destroy(t_data *data, t_philo *philo)
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		pthread_mutex_destroy(&data->forks[i]);
+		pthread_mutex_destroy(&philo[i].fork);
 		i++;
 	}
 	pthread_mutex_destroy(&data->message);
+	pthread_mutex_destroy(&data->nb_meals_all_philos);
 	free(philo);
 }
 /* 

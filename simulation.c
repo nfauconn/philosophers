@@ -6,7 +6,7 @@
 /*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 12:30:23 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/14 16:43:33 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/14 18:36:45 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,14 @@ void	*check_death(void *ptr)
 
 void	*routine(void *ptr)
 {
-	int		i;
 	t_philo	*philo;
 
 	philo = (t_philo *)ptr;
-	philo->t0 = ft_get_time(philo->data->t0);
-	i = 0;
-	while ((i++ < philo->data->nb_meals || philo->data->nb_meals == -1) && philo->data->death == 0)
-	{
-		if (philo->pos == 0)
-			meal_loop(philo, philo->data->nb_philo - 1, philo->pos);
-		else
-			meal_loop(philo, philo->pos - 1, philo->pos);
-	}
+	philo->start_die = ft_get_time(philo->data->t0);
+	meal_loop(philo);
+	ft_print(philo, "is sleeping");
+	ft_sleep(philo, philo->data->t_sleep);
+	ft_print(philo, "his thinking");
 	return (NULL);
 }
 

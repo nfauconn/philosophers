@@ -6,7 +6,7 @@
 /*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 12:12:57 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/14 16:59:29 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/14 18:08:19 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,19 @@ typedef struct s_data
 	int				death;
 	t_ull			t0;
 	pthread_mutex_t	message;
-	pthread_mutex_t	nb_meals_all_philos
+	pthread_mutex_t	nb_meals_all_philos;
 /* 	pthread_mutex_t	death_mutex;
  */}	t_data;
 
 typedef struct s_philo
 {
 	int					pos;
+	int					nb_meals;
+	int					death;
 	t_data				*data;
+	t_ull				start_die;
 	pthread_mutex_t		fork;
-	pthread_mutex_t		start_eat;
-	pthread_mutex_t		nb_meals;
-	pthread_mutex_t		death;
+	pthread_mutex_t		*fork_neighbour;
 }	t_philo;
 
 //void		*check_death(void *ptr);
@@ -69,7 +70,7 @@ void		init_data(t_data *data);
 void		init_philo(t_data *data, t_philo *philo);
 int			join_threads(t_data *data, pthread_t *threads);
 int			main(int argc, char **argv);
-void		meal_loop(t_philo *philo, int left_fork, int right_fork);
+void		meal_loop(t_philo *philo);
 int			parse_fill(t_data *data, int argc, char **argv);
 void		*routine(void *ptr);
 int			simulation(t_data *data, t_philo *philo, pthread_t *threads);

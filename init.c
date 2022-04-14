@@ -6,7 +6,7 @@
 /*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 15:17:26 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/14 16:58:54 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/14 18:08:22 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,16 @@ void	init_philo(t_data *data, t_philo *philo)
 	while (i < data->nb_philo)
 	{
 		philo[i].pos = i;
+		philo[i].death = 0;
+		philo[i].nb_meals = data->nb_meals;
 		philo[i].data = data;
 		pthread_mutex_init(&philo[i].fork, NULL);
-		pthread_mutex_init(&philo[i].start_eat, NULL);
-		pthread_mutex_init(&philo[i].nb_meals, NULL);
+		if (data->nb_philo == 1)
+			philo[i].fork_neighbour = NULL;
+		else if (philo[i].pos == data->nb_philo - 1)
+			philo[i].fork_neighbour = &philo[0].fork;
+		else
+			philo[i].fork_neighbour = &philo[i + 1].fork;
 		i++;
 	}
 	pthread_mutex_init(&data->message, NULL);
