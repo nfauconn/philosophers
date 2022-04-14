@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 12:12:23 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/08 18:02:29 by user42           ###   ########.fr       */
+/*   Updated: 2022/04/14 16:39:58 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,21 @@ int	main(int argc, char **argv)
 {
 	t_data		data;
 	t_philo		*philo;
+	pthread_t	*threads;
 
 	init_data(&data);
 	if (argc < 5 || argc > 6 || parse_fill(&data, argc, argv) == FAILURE)
-	{
-		error_arg("wrong arguments");
 		return (FAILURE);
-	}
-	philo = (t_philo *)malloc(sizeof(t_philo) * (data.nb_philo + 1));
+	philo = (t_philo *)malloc(sizeof(t_philo) * data.nb_philo);
 	if (!philo)
-		return (FAILURE);
-	init_philo(data, philo);
-/* 	if (!philo)
-		return (FAILURE); */
-	if (simulation(data, philo) == FAILURE)
-		return (FAILURE);
-	free_and_destroy(philo);
+		return (ft_error("malloc failure"));
+	init_philo(&data, philo);
+	threads = (pthread_t *)malloc(sizeof(pthread_t) * (data.nb_philo + 1));
+	if (!threads)
+		return (ft_error_exit(&data, philo, threads, "thread mem alloc failed"));
+	if (simulation(&data, philo, threads) == FAILURE)
+		return (ft_error_exit(&data, philo, threads, "simulation failure"));
+	free_and_destroy(&data, philo);
+	free(threads);
 	return (SUCCESS);
 }
