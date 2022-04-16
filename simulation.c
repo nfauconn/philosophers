@@ -6,7 +6,7 @@
 /*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 12:30:23 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/14 19:44:43 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/16 11:30:11 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,16 @@ void	*routine(void *ptr)
 	t_philo	*philo;
 
 	philo = (t_philo *)ptr;
-	philo->start_die = ft_get_time(philo->data->t0);
-	while (!philo->data->death && (philo->nb_meals-- || philo->nb_meals == -1))
+	philo->start_die = actual_time(philo->data->t0);
+	while (!philo->data->death && (philo->nb_meals > 0 || philo->nb_meals == -1))
 	{
+		meal_loop(philo);
 		if (philo->death == 1)
 		{
 			philo->data->death = 1;
 			break ;
 		}
-		meal_loop(philo);
+		philo->nb_meals--;
 	}
 	return (NULL);
 }

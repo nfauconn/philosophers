@@ -6,7 +6,7 @@
 /*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 17:17:51 by user42            #+#    #+#             */
-/*   Updated: 2022/04/14 19:41:26 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/16 11:34:41 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	free_and_destroy(t_data *data, t_philo *philo)
 		i++;
 	}
 	pthread_mutex_destroy(&data->message);
-	pthread_mutex_destroy(&data->nb_meals_all_philos);
+	pthread_mutex_destroy(&data->death_mutex);
 	free(philo);
 }
 /* 

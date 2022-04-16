@@ -6,7 +6,7 @@
 /*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 15:17:26 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/14 18:08:22 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/16 11:34:22 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	init_philo(t_data *data, t_philo *philo)
 		i++;
 	}
 	pthread_mutex_init(&data->message, NULL);
-	pthread_mutex_init(&data->nb_meals_all_philos, NULL);
+	pthread_mutex_init(&data->death_mutex, NULL);
 }
 
 void	init_data(t_data *data)
@@ -44,6 +44,6 @@ void	init_data(t_data *data)
 	data->t_sleep = 0;
 	data->nb_meals = -1;
 	data->death = 0;
-	data->t0 = ft_get_time(0);
+	data->t0 = actual_time(0);
 	data->print_ok = 1;
 }

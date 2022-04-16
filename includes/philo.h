@@ -6,7 +6,7 @@
 /*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 12:12:57 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/14 18:08:19 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/16 11:37:30 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ typedef struct s_data
 	int				death;
 	t_ull			t0;
 	pthread_mutex_t	message;
-	pthread_mutex_t	nb_meals_all_philos;
-/* 	pthread_mutex_t	death_mutex;
- */}	t_data;
+	pthread_mutex_t	nb_meas_all_philos;
+ 	pthread_mutex_t	death_mutex;
+}	t_data;
 
 typedef struct s_philo
 {
@@ -57,15 +57,15 @@ typedef struct s_philo
 }	t_philo;
 
 //void		*check_death(void *ptr);
+t_ull		actual_time(t_ull t0);
 int			create_threads(t_data *data, t_philo *philo, pthread_t *threads);
+void		free_and_destroy(t_data *data, t_philo *philo);
+int			ft_atoi(char *str);
 int			ft_error(char *s);
 int			ft_error_arg(char *s);
 int			ft_error_exit(t_data *data, t_philo *philo, pthread_t *threads, char *s);
-void		free_and_destroy(t_data *data, t_philo *philo);
-int			ft_atoi(char *str);
-t_ull		ft_get_time(t_ull t0);
 void		ft_print(t_philo *philo, char *s);
-void		ft_sleep(t_philo *philo, int time);
+void		ft_sleep(t_philo *philo, t_ull end_sleep);
 void		init_data(t_data *data);
 void		init_philo(t_data *data, t_philo *philo);
 int			join_threads(t_data *data, pthread_t *threads);
