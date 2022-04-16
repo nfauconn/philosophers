@@ -6,7 +6,7 @@
 /*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 15:17:26 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/16 12:19:06 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/16 14:21:05 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	init_philo(t_infos *i, t_philo *philo)
 	while (index < i->nb_philo)
 	{
 		philo[index].pos = index;
+		if (index % 2)
+			philo[index].right_handed = 1;
 		philo[index].death = 0;
 		philo[index].nb_meals = i->nb_meals;
 		philo[index].i = i;
@@ -38,7 +40,12 @@ void	init_philo(t_infos *i, t_philo *philo)
 
 void	init_infos(t_infos *i)
 {
+	int	index;
+
+	index = 0;
 	i->nb_philo = 0;
+ 	while (i->forks[index])
+	 	i->forks[index++] = 0;
 	i->t_die = 0;
 	i->t_eat = 0;
 	i->t_sleep = 0;

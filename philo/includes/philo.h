@@ -6,7 +6,7 @@
 /*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 12:12:57 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/16 12:22:14 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/16 15:15:46 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef enum s_bool
 typedef struct s_infos
 {
 	int				nb_philo;
+ 	int				forks[201];
 	int				t_die;
 	int				t_eat;
 	int				t_sleep;
@@ -48,6 +49,9 @@ typedef struct s_infos
 typedef struct s_philo
 {
 	int					pos;
+	int					first_fork;
+	int					scnd_fork;
+	int					right_handed;
 	int					nb_meals;
 	int					death;
 	t_infos				*i;
@@ -69,7 +73,7 @@ void		init_infos(t_infos *i);
 void		init_philo(t_infos *i, t_philo *philo);
 int			join_threads(t_infos *i, pthread_t *threads);
 int			main(int argc, char **argv);
-void		meal_loop(t_philo *philo);
+void		meal_loop(t_philo *philo, pthread_mutex_t *fork_1, pthread_mutex_t *fork_2);
 int			parse_fill(t_infos *i, int argc, char **argv);
 void		*routine(void *ptr);
 int			simulation(t_infos *i, t_philo *philo, pthread_t *threads);

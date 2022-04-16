@@ -6,7 +6,7 @@
 /*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 17:17:51 by user42            #+#    #+#             */
-/*   Updated: 2022/04/16 12:12:40 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/16 13:52:15 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,3 @@ void	free_and_destroy(t_infos *i, t_philo *philo)
 	pthread_mutex_destroy(&i->death_mutex);
 	free(philo);
 }
-/* 
-void	simulation_end(t_infos *i)
-{
-
-}
- */
