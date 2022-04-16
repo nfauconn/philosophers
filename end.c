@@ -6,42 +6,42 @@
 /*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 17:17:51 by user42            #+#    #+#             */
-/*   Updated: 2022/04/16 11:34:41 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/16 12:12:40 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	join_threads(t_data *data, pthread_t *threads)
+int	join_threads(t_infos *i, pthread_t *threads)
 {
-	int	i;
+	int	index;
 
-	i = 0;
-	while (i < data->nb_philo)
+	index = 0;
+	while (index < i->nb_philo)
 	{
-		if (pthread_join(threads[i], NULL))
+		if (pthread_join(threads[index], NULL))
 			return (FAILURE);
-		i++;
+		index++;
 	}
 	return (SUCCESS);
 }
 
-void	free_and_destroy(t_data *data, t_philo *philo)
+void	free_and_destroy(t_infos *i, t_philo *philo)
 {
-	int	i;
+	int	index;
 
-	i = 0;
-	while (i < data->nb_philo)
+	index = 0;
+	while (index < i->nb_philo)
 	{
-		pthread_mutex_destroy(&philo[i].fork);
-		i++;
+		pthread_mutex_destroy(&philo[index].fork);
+		index++;
 	}
-	pthread_mutex_destroy(&data->message);
-	pthread_mutex_destroy(&data->death_mutex);
+	pthread_mutex_destroy(&i->message);
+	pthread_mutex_destroy(&i->death_mutex);
 	free(philo);
 }
 /* 
-void	simulation_end(t_data *data)
+void	simulation_end(t_infos *i)
 {
 
 }

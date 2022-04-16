@@ -6,7 +6,7 @@
 /*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 12:03:49 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/16 11:36:54 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/16 12:10:48 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,34 @@ void	ft_sleep(t_philo *philo, t_ull end_sleep)
 {
 	t_ull	t0;
 
-	t0 = philo->data->t0;
+	t0 = philo->i->t0;
 	end_sleep += actual_time(t0);
 	while (actual_time(t0) < end_sleep 
-		&& actual_time(t0) - philo->start_die < (t_ull)philo->data->t_die)
+		&& actual_time(t0) - philo->start_die < (t_ull)philo->i->t_die)
 		usleep(1000);
-	if (actual_time(t0) - philo->start_die >= (t_ull) philo->data->t_die)
+	if (actual_time(t0) - philo->start_die >= (t_ull) philo->i->t_die)
 	{
-		pthread_mutex_lock(&philo->data->death_mutex);
-		philo->data->death = 1;
+		pthread_mutex_lock(&philo->i->death_mutex);
+		philo->i->death = 1;
 		ft_print(philo, "is dead\n");
 	}
 }
 
 void	ft_print(t_philo *philo, char *s)
 {
-	if (philo->data->death == 0)
+	if (philo->i->death == 0)
 	{
-		pthread_mutex_lock(&philo->data->message);
-		printf("%8llu philo %d %s\n", actual_time(philo->data->t0), philo->pos + 1, s);
-		pthread_mutex_unlock(&philo->data->message);
+		pthread_mutex_lock(&philo->i->message);
+		printf("%8llu philo %d %s\n", actual_time(philo->i->t0), philo->pos + 1, s);
+		pthread_mutex_unlock(&philo->i->message);
 	}
-	else if (philo->data->death == 1 && philo->data->print_ok)
+	else if (philo->i->death == 1 && philo->i->print_ok)
 	{
-		pthread_mutex_lock(&philo->data->message);
-		printf("%8llu philo %d is dead\n", actual_time(philo->data->t0), philo->pos + 1);
-		philo->data->print_ok = 0;
-		pthread_mutex_unlock(&philo->data->death_mutex);
-		pthread_mutex_unlock(&philo->data->message);
+		pthread_mutex_lock(&philo->i->message);
+		printf("%8llu philo %d is dead\n", actual_time(philo->i->t0), philo->pos + 1);
+		philo->i->print_ok = 0;
+		pthread_mutex_unlock(&philo->i->death_mutex);
+		pthread_mutex_unlock(&philo->i->message);
 	}
 }
 

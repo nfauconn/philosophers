@@ -6,7 +6,7 @@
 /*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 16:41:11 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/14 15:57:32 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/16 12:10:48 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ int	ft_error(char *s)
 	return (FAILURE);
 }
 
-int	ft_error_exit(t_data *data, t_philo *philo, pthread_t *threads, char *s)
+int	ft_error_exit(t_infos *i, t_philo *philo, pthread_t *threads, char *s)
 {
 	printf("\nERROR\n");
 	printf("%s\n\n", s);
-	free_and_destroy(data, philo);
+	free_and_destroy(i, philo);
 	if (threads)
 	{
-		join_threads(data, threads);
+		join_threads(i, threads);
 		free(threads);
 	}
 	return (FAILURE);

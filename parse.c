@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 18:22:26 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/14 11:10:09 by user42           ###   ########.fr       */
+/*   Updated: 2022/04/16 12:20:23 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,29 +32,31 @@ static int	parse(int argc, char **argv)
 	return (SUCCESS);
 }
 
-static long	fill_data(char *arg)
+static long	fill_i(char *arg)
 {
-	long	data;
+	long	i;
 
-	data = ft_atoi(arg);
-	if (data == -1)
+	i = ft_atoi(arg);
+	if (i == -1)
 		return (0);
-	return ((int)data);
+	return ((int)i);
 }
 
-int	parse_fill(t_data *data, int argc, char **argv)
+int	parse_fill(t_infos *i, int argc, char **argv)
 {
 	if (parse(argc, argv) == FAILURE)
 		return (ft_error_arg("wrong arguments"));
-	data->nb_philo = fill_data(argv[1]);
-	data->t_die = fill_data(argv[2]);
-	data->t_eat = fill_data(argv[3]);
-	data->t_sleep = fill_data(argv[4]);
+	i->nb_philo = fill_i(argv[1]);
+	i->t_die = fill_i(argv[2]);
+	i->t_eat = fill_i(argv[3]);
+	i->t_sleep = fill_i(argv[4]);
 	if (argc == 6)
-		data->nb_meals = fill_data(argv[5]);
-	if (data->nb_philo == 0 || data->t_die == 0
-		|| data->t_eat == 0 || data->t_sleep == 0
-		|| data->nb_meals == 0)
+		i->nb_meals = fill_i(argv[5]);
+	if (i->nb_philo == 0 || i->t_die == 0
+		|| i->t_eat == 0 || i->t_sleep == 0
+		|| i->nb_meals == 0)
 		return (ft_error_arg("wrong arguments"));
+	if (i->nb_meals > 0)
+		i->is_nb_meals = 1; 
 	return (SUCCESS);
 }
