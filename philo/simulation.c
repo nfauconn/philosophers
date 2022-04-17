@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 12:30:23 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/17 13:21:19 by user42           ###   ########.fr       */
+/*   Updated: 2022/04/17 16:27:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,21 @@ void	*routine(void *ptr)
 
 	philo = (t_philo *)ptr;
 	philo->start_die = actual_time(philo->i->t0);
+/* 	if (philo->right_handed)
+		usleep(2000); */
 	while (!philo->i->death && (philo->nb_meals > 0 || !philo->i->is_nb_meals))
 	{
 		if (philo->right_handed)
-		{
-/* 			if (philo->nb_meals == philo->i->nb_meals)
-				ft_sleep(philo, 10); */
-			if (philo->i->nb_philo % 2 && philo->pos == philo->i->nb_philo - 1)
-				ft_sleep(philo, 10);
 			meal_loop(philo, philo->fork_neighbour, &philo->fork);
-		}
 		else
 			meal_loop(philo, &philo->fork, philo->fork_neighbour);
 		if (philo->death == 1)
 		{
+			pthread_mutex_lock(&philo->i->death_mutex);
 			philo->i->death = 1;
+			pthread_mutex_unlock(&philo->i->death_mutex);
 			break ;
 		}
-		philo->nb_meals--;
 	}
 	return (NULL);
 }

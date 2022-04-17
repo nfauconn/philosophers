@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 12:03:49 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/16 14:05:23 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/17 14:52:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ void	ft_print(t_philo *philo, char *s)
 	if (philo->i->death == 0)
 	{
 		pthread_mutex_lock(&philo->i->message);
-		printf("%8llu philo %d %s\n", actual_time(philo->i->t0), philo->pos + 1, s);
+		printf("%8llu philo %d %s\n", actual_time(philo->i->t0), philo->pos, s); //POS + 1 POUR RENDU
 		pthread_mutex_unlock(&philo->i->message);
 	}
 	else if (philo->i->death == 1 && philo->i->print_ok)
 	{
 		pthread_mutex_lock(&philo->i->message);
-		printf("%8llu philo %d is dead\n", actual_time(philo->i->t0), philo->pos + 1);
+		printf("%8llu philo %d is dead\n", actual_time(philo->i->t0), philo->pos); //POS + 1 POUR RENDU
 		philo->i->print_ok = 0;
 		pthread_mutex_unlock(&philo->i->message);
 	}
