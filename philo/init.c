@@ -3,14 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 15:17:26 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/16 14:21:05 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/17 13:29:34 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static void	init_forks_indexes(t_infos *i, t_philo *philo)
+{
+	int	index;
+
+	index = 0;
+	while (index < i->nb_philo)
+	{
+		if (index % 2 == 0)
+		{
+			philo[index].right_handed = 1;
+			philo[index].first_fork = philo->pos;
+			if (philo[index].pos == 0)
+				philo[index].scnd_fork = philo[index].i->nb_philo + 1;
+			else
+				philo[index].scnd_fork = philo[index].pos + 1;
+		}
+		else
+		{
+			philo[index].first_fork = philo[index].pos;
+			if (philo[index].pos == 0)
+				philo[index].scnd_fork = philo[index].i->nb_philo + 1;
+			else
+				philo[index].scnd_fork = philo[index].pos + 1;
+		}
+		index++;
+	}
+}
 
 void	init_philo(t_infos *i, t_philo *philo)
 {
@@ -20,20 +48,19 @@ void	init_philo(t_infos *i, t_philo *philo)
 	while (index < i->nb_philo)
 	{
 		philo[index].pos = index;
-		if (index % 2)
-			philo[index].right_handed = 1;
 		philo[index].death = 0;
 		philo[index].nb_meals = i->nb_meals;
 		philo[index].i = i;
 		pthread_mutex_init(&philo[index].fork, NULL);
 		if (i->nb_philo == 1)
 			philo[index].fork_neighbour = NULL;
-		else if (philo[index].pos == i->nb_philo - 1)
+		else if (philo[index].pos == philo->i->nb_philo - 1)
 			philo[index].fork_neighbour = &philo[0].fork;
 		else
 			philo[index].fork_neighbour = &philo[index + 1].fork;
 		index++;
 	}
+	init_forks_indexes(i, philo);
 	pthread_mutex_init(&i->message, NULL);
 	pthread_mutex_init(&i->death_mutex, NULL);
 }
