@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 12:12:23 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/16 14:17:23 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/18 12:38:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int argc, char **argv)
 	memset(i.forks, '0', i.nb_philo);
 	printf("forks[3] = %d\n", i.forks[3]); */
 	init_philo(&i, philo);
-	threads = (pthread_t *)malloc(sizeof(pthread_t) * (i.nb_philo));
+	threads = (pthread_t *)malloc(sizeof(pthread_t) * (i.nb_philo + 1));
 	if (!threads)
 		return (ft_error_exit(&i, philo, threads, "thread mem alloc failed"));
 	if (simulation(&i, philo, threads) == FAILURE)

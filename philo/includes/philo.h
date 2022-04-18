@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 12:12:57 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/16 15:15:46 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/18 12:45:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_philo
 }	t_philo;
 
 t_ull		actual_time(t_ull t0);
+void		*check_death(void *ptr);
 int			create_threads(t_infos *i, t_philo *philo, pthread_t *threads);
 void		free_and_destroy(t_infos *i, t_philo *philo);
 int			ft_atoi(char *str);
@@ -72,6 +73,7 @@ void		ft_sleep(t_philo *philo, t_ull end_sleep);
 void		init_infos(t_infos *i);
 void		init_philo(t_infos *i, t_philo *philo);
 int			join_threads(t_infos *i, pthread_t *threads);
+void		lock(t_philo *philo, int index, pthread_mutex_t *fork);
 int			main(int argc, char **argv);
 void		meal_loop(t_philo *philo, pthread_mutex_t *fork_1, pthread_mutex_t *fork_2);
 int			parse_fill(t_infos *i, int argc, char **argv);

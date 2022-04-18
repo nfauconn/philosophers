@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 15:17:26 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/17 15:57:09 by user42           ###   ########.fr       */
+/*   Updated: 2022/04/18 11:53:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ static void	init_forks_indexes(t_infos *i, t_philo *philo)
 	index = 0;
 	while (index < i->nb_philo)
 	{
-		if (i->nb_philo == 1)
-			philo[index].fork_neighbour = NULL;
-		else if (philo[index].pos == philo[index].i->nb_philo - 1)
+		if (philo[index].pos == i->nb_philo - 1)
 			philo[index].fork_neighbour = &philo[0].fork;
 		else
 			philo[index].fork_neighbour = &philo[index + 1].fork;
@@ -34,7 +32,7 @@ static void	init_forks_indexes(t_infos *i, t_philo *philo)
 			else
 				philo[index].scnd_fork = philo[index].pos + 1;
 		}
-		else
+		else if (index % 2)
 		{
 			philo[index].right_handed = 1;
 			if (philo[index].pos == i->nb_philo - 1)
@@ -43,8 +41,8 @@ static void	init_forks_indexes(t_infos *i, t_philo *philo)
 				philo[index].first_fork = philo[index].pos + 1;
 			philo[index].scnd_fork = philo[index].pos;
 		}
-//		printf("philo[%d].first_fork = %d\n", index, philo[index].first_fork);
-//		printf("philo[%d].scnd_fork = %d\n", index, philo[index].scnd_fork);
+/* 		printf("philo[%d].first_fork = %d\n", index, philo[index].first_fork);
+		printf("philo[%d].scnd_fork = %d\n", index, philo[index].scnd_fork); */
 		index++;
 	}
 }
@@ -57,12 +55,17 @@ void	init_philo(t_infos *i, t_philo *philo)
 	while (index < i->nb_philo)
 	{
 		philo[index].pos = index;
+		philo[index].first_fork = 0;
+		philo[index].scnd_fork = 0;
 		philo[index].death = 0;
 		philo[index].nb_meals = i->nb_meals;
+		philo[index].start_die = 0;
 		philo[index].i = i;
 		pthread_mutex_init(&philo[index].fork, NULL);
 		index++;
 	}
+	if (i->nb_philo == 1)
+		philo[0].fork_neighbour = NULL;
 	init_forks_indexes(i, philo);
 	pthread_mutex_init(&i->message, NULL);
 	pthread_mutex_init(&i->death_mutex, NULL);
