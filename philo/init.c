@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 15:17:26 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/18 11:53:40 by user42           ###   ########.fr       */
+/*   Updated: 2022/04/18 14:31:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	init_philo(t_infos *i, t_philo *philo)
 	}
 	if (i->nb_philo == 1)
 		philo[0].fork_neighbour = NULL;
-	init_forks_indexes(i, philo);
+	else
+		init_forks_indexes(i, philo);
 	pthread_mutex_init(&i->message, NULL);
 	pthread_mutex_init(&i->death_mutex, NULL);
 }

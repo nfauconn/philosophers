@@ -6,56 +6,13 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 12:03:49 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/18 13:01:42 by user42           ###   ########.fr       */
+/*   Updated: 2022/04/18 14:58:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*check_death(void *ptr)
-{
-	t_philo	*philo;
-	int		nb_philo;
-	t_ull	t0;
-	t_ull	t_die;
-	int		index;
-
-	philo = (t_philo *)ptr;
-	nb_philo = philo[0].i->nb_philo;
-	t0 = philo[0].i->t0;
-	t_die = (t_ull)philo[0].i->t_die;
-	index = 0;
-	while (1)
-	{
-		if (index == nb_philo)
-		{
-			usleep(1000);
-			index = 0;
-		}
-		if(actual_time(t0) - philo[index].start_die >= t_die)
-		{
-			pthread_mutex_lock(&philo[index].i->death_mutex);
-			philo[index].i->death = 1;
-			pthread_mutex_unlock(&philo[index].i->death_mutex);
-			ft_print(&philo[index], "is dead\n");
-			break ;
-		}
-		index++;
-	}
-	return (NULL);
-}
-
-void	ft_sleep(t_philo *philo, t_ull end_sleep)
-{
-	t_ull	t0;
-
-	t0 = philo->i->t0;
-	end_sleep += actual_time(t0);
-	while (!philo->i->death && actual_time(t0) < end_sleep) 
-		usleep(1000);
-}
-
-void	ft_print(t_philo *philo, char *s)
+void	mutex_print(t_philo *philo, char *s)
 {
 	if (philo->i->print_ok && philo->i->death == 0)
 	{

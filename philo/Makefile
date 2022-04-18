@@ -5,7 +5,7 @@ CFLAGS = -Wall -Wextra -Werror -pthread -g3 #-fsanitize=thread
 INCLUDES = -I includes
 COMP = ${CC} ${CFLAGS}
 RM	 = rm -rf
-SRCS = end.c error.c init.c main.c meal_loop.c parse.c simulation.c utils.c
+SRCS = check_death.c eat_sleep_think.c end.c error.c init.c main.c meal_loop.c parse.c simulation.c utils.c
 OBJS = ${addprefix ${OBJ_DIR}/,${SRCS:.c=.o}}
 
 ${OBJ_DIR}/%.o: %.c

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 12:12:23 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/18 12:38:10 by user42           ###   ########.fr       */
+/*   Updated: 2022/04/18 14:30:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 		return (FAILURE);
 	philo = (t_philo *)malloc(sizeof(t_philo) * i.nb_philo);
 	if (!philo)
-		return (ft_error("malloc failure"));
+		return (ft_error("philo * malloc failure"));
 /* 	i.forks = (int *)malloc(sizeof (int));
 	if (!i.forks)
 	{

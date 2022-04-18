@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 12:30:23 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/18 12:48:48 by user42           ###   ########.fr       */
+/*   Updated: 2022/04/18 15:22:34 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,18 @@ void	*routine(void *ptr)
 	philo = (t_philo *)ptr;
 	if (philo->i->nb_philo == 1)
 	{
-		ft_print(philo, "has taken a fork");
-		ft_sleep(philo, philo->i->t_die);
+		mutex_print(philo, "has taken a fork");
+		ft_milli_sleep(philo, philo->i->t_die);
 		return (NULL);
 	}
 	while (!philo->i->death	&& (philo->nb_meals > 0 || !philo->i->is_nb_meals))
 	{
+		if (philo->nb_meals == 0 && philo->i->is_nb_meals)
+			break ;
 		if (philo->right_handed)
 			meal_loop(philo, philo->fork_neighbour, &philo->fork);
 		else
 			meal_loop(philo, &philo->fork, philo->fork_neighbour);
-		if (philo->nb_meals == 0 && philo->i->is_nb_meals)
-		{
-			ft_print(philo, "is finish");
-			break ;
-		}
 	}
 	return (NULL);
 }
@@ -48,9 +45,6 @@ int	create_threads(t_infos *i, t_philo *philo, pthread_t *threads)
 		philo[index].start_die = actual_time(i->t0);
 		if (pthread_create(&threads[index], NULL, &routine, &philo[index]) != SUCCESS)
 			return (FAILURE);
-		pthread_mutex_lock(&i->message);
-		printf("thread[%d] created\n", index);
-		pthread_mutex_unlock(&i->message);
 		index += 2;
 	}
 	usleep(1000);
@@ -59,9 +53,6 @@ int	create_threads(t_infos *i, t_philo *philo, pthread_t *threads)
 	{
 		if (pthread_create(&threads[index], NULL, &routine, &philo[index]) != SUCCESS)
 			return (FAILURE);
-		pthread_mutex_lock(&i->message);
-		printf("thread[%d] created\n", index);
-		pthread_mutex_unlock(&i->message);
 		index += 2;
 	}
 	if (pthread_create(&threads[i->nb_philo], NULL, &check_death, philo) != SUCCESS)
