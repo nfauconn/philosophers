@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 15:17:26 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/18 14:31:29 by user42           ###   ########.fr       */
+/*   Updated: 2022/04/18 18:00:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	init_philo(t_infos *i, t_philo *philo)
 		philo[index].pos = index;
 		philo[index].first_fork = 0;
 		philo[index].scnd_fork = 0;
-		philo[index].death = 0;
+		philo[index].end = 0;
 		philo[index].nb_meals = i->nb_meals;
 		philo[index].start_die = 0;
 		philo[index].i = i;
@@ -69,7 +69,8 @@ void	init_philo(t_infos *i, t_philo *philo)
 	else
 		init_forks_indexes(i, philo);
 	pthread_mutex_init(&i->message, NULL);
-	pthread_mutex_init(&i->death_mutex, NULL);
+	pthread_mutex_init(&i->count_meals, NULL);
+	pthread_mutex_init(&i->end_mutex, NULL);
 }
 
 void	init_infos(t_infos *i)
@@ -85,7 +86,7 @@ void	init_infos(t_infos *i)
 	i->t_sleep = 0;
 	i->nb_meals = -1;
 	i->is_nb_meals = 0;
-	i->death = 0;
+	i->end = 0;
 	i->t0 = actual_time(0);
 	i->print_ok = 1;
 }

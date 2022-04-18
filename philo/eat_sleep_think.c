@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:45:58 by user42            #+#    #+#             */
-/*   Updated: 2022/04/18 14:58:28 by user42           ###   ########.fr       */
+/*   Updated: 2022/04/18 17:52:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_milli_sleep(t_philo *philo, t_ull end_sleep)
 
 	t0 = philo->i->t0;
 	end_sleep += actual_time(t0);
-	while (!philo->i->death && actual_time(t0) < end_sleep) 
+	while (!philo->i->end && actual_time(t0) < end_sleep) 
 		usleep(1000);
 }
 
@@ -38,5 +38,4 @@ void	ft_sleep(t_philo *philo)
 void	ft_think(t_philo *philo)
 {
 	mutex_print(philo, "is thinking");
-	usleep(200);
 }

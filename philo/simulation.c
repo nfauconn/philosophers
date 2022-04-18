@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 12:30:23 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/18 15:22:34 by user42           ###   ########.fr       */
+/*   Updated: 2022/04/18 17:52:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,10 @@ void	*routine(void *ptr)
 		ft_milli_sleep(philo, philo->i->t_die);
 		return (NULL);
 	}
-	while (!philo->i->death	&& (philo->nb_meals > 0 || !philo->i->is_nb_meals))
-	{
-		if (philo->nb_meals == 0 && philo->i->is_nb_meals)
-			break ;
-		if (philo->right_handed)
-			meal_loop(philo, philo->fork_neighbour, &philo->fork);
-		else
-			meal_loop(philo, &philo->fork, philo->fork_neighbour);
-	}
+	if (philo->right_handed)
+		meal_loop(philo, philo->fork_neighbour, &philo->fork);
+	else
+		meal_loop(philo, &philo->fork, philo->fork_neighbour);
 	return (NULL);
 }
 
@@ -55,7 +50,7 @@ int	create_threads(t_infos *i, t_philo *philo, pthread_t *threads)
 			return (FAILURE);
 		index += 2;
 	}
-	if (pthread_create(&threads[i->nb_philo], NULL, &check_death, philo) != SUCCESS)
+	if (pthread_create(&threads[i->nb_philo], NULL, &check_end, philo) != SUCCESS)
 		return (FAILURE);
 	return (SUCCESS);
 }
@@ -72,7 +67,7 @@ int	simulation(t_infos *i, t_philo *philo, pthread_t *threads)
 		printf("philo[%d].first_fork = %d\n", index, philo[index].first_fork);
 		printf("philo[%d].scnd_fork = %d\n", index, philo[index].scnd_fork);
 		printf("philo[%d].nb_meals = %d\n", index, philo[index].nb_meals);
-		printf("philo[%d].death = %d\n", index, philo[index].death);
+		printf("philo[%d].end = %d\n", index, philo[index].end);
 		printf("philo[%d].start_die = %llu\n", index, philo[index].start_die);
 		printf("philo[%d].fork = %p\n", index, &philo[index].fork);
 		printf("philo[%d].fork_neighbour = %p\n\n", index, philo[index].fork_neighbour);	

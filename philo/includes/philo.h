@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 12:12:57 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/18 14:58:56 by user42           ###   ########.fr       */
+/*   Updated: 2022/04/18 17:59:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,11 @@ typedef struct s_infos
 	int				nb_meals;
 	int				is_nb_meals;
 	int				print_ok;
-	int				death;
+	int				end;
 	t_ull			t0;
 	pthread_mutex_t	message;
- 	pthread_mutex_t	death_mutex;
+ 	pthread_mutex_t	end_mutex;
+	pthread_mutex_t	count_meals;
 }	t_infos;
 
 typedef struct s_philo
@@ -53,7 +54,7 @@ typedef struct s_philo
 	int					scnd_fork;
 	int					right_handed;
 	int					nb_meals;
-	int					death;
+	int					end;
 	t_infos				*i;
 	t_ull				start_die;
 	pthread_mutex_t		fork;
@@ -61,7 +62,7 @@ typedef struct s_philo
 }	t_philo;
 
 t_ull		actual_time(t_ull t0);
-void		*check_death(void *ptr);
+void		*check_end(void *ptr);
 int			create_threads(t_infos *i, t_philo *philo, pthread_t *threads);
 void		free_and_destroy(t_infos *i, t_philo *philo);
 int			ft_atoi(char *str);
