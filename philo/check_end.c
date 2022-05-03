@@ -12,45 +12,64 @@
 
 #include "philo.h"
 
+static int	is_finish(t_philo *philo)
+{
+	int	ret;
+
+	ret = 0;
+	pthread_mutex_lock(&philo->i->count_meals);
+	if (philo->i->finish_philo == philo->i->nb_philo)
+		ret = 1;
+	pthread_mutex_unlock(&philo->i->count_meals);
+	return (ret);
+}
+
+static int	check_death(t_philo *philo, int index, t_ull t0, t_ull t_die)
+{
+	t_ull	time_since_last_meal;
+
+	pthread_mutex_lock(&philo[index].time);
+	time_since_last_meal = actual_time(t0) - philo[index].last_time_eat;
+	pthread_mutex_unlock(&philo[index].time);
+	if (time_since_last_meal >= t_die)
+	{
+		pthread_mutex_lock(&philo->i->end_mutex);
+		philo->i->end = 1;
+		pthread_mutex_unlock(&philo->i->end_mutex);
+		mutex_print(&philo[index], "is dead\n");
+		return (1);
+	}
+	return (0);
+}
+
+int	end(t_philo *philo)
+{
+	int	ret;
+
+	pthread_mutex_lock(&philo->i->end_mutex);
+	ret = philo->i->end;
+	pthread_mutex_unlock(&philo->i->end_mutex);
+	return (ret);
+}
+
 void	*check_end(void *ptr)
 {
 	t_philo	*philo;
-	int		nb_philo;
-	t_ull	t0;
-	t_ull	t_die;
 	int		index;
-	int		count;
 
 	philo = (t_philo *)ptr;
-	nb_philo = philo[0].i->nb_philo;
-	t0 = philo[0].i->t0;
-	t_die = (t_ull)philo[0].i->t_die;
 	index = 0;
-	count = 0;
-	while (!philo->i->end)
+	while (!end(philo))
 	{
-		if (index == nb_philo)
+		if (index == philo->i->nb_philo)
 			index = 0;
-		if (actual_time(t0) - philo[index].start_die >= t_die)
+		if (check_death(philo, index, philo->i->t0, philo->i->t_die))
+			break ;
+		if (is_finish(&philo[index]))
 		{
 			pthread_mutex_lock(&philo->i->end_mutex);
 			philo->i->end = 1;
 			pthread_mutex_unlock(&philo->i->end_mutex);
-			mutex_print(&philo[index], "is dead\n");
-			break ;
-		}
-		if (philo->i->is_nb_meals && philo[index].nb_meals == philo->i->nb_meals)
-		{
-			pthread_mutex_lock(&philo->i->count_meals);
-			count++;
-			if (count == philo->i->nb_philo && !philo->i->end)
-			{
-				pthread_mutex_lock(&philo->i->end_mutex);
-				write(1, "end\n", 4);
-				philo->i->end = 1;
-				pthread_mutex_unlock(&philo->i->end_mutex);
-			}
-			pthread_mutex_unlock(&philo->i->count_meals);
 			break ;
 		}
 		index++;

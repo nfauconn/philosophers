@@ -6,7 +6,7 @@
 /*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 18:22:26 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/16 12:20:23 by nfauconn         ###   ########.fr       */
+/*   Updated: 2022/04/21 13:11:28 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,5 @@ int	parse_fill(t_infos *i, int argc, char **argv)
 		|| i->t_eat == 0 || i->t_sleep == 0
 		|| i->nb_meals == 0)
 		return (ft_error_arg("wrong arguments"));
-	if (i->nb_meals > 0)
-		i->is_nb_meals = 1; 
 	return (SUCCESS);
 }

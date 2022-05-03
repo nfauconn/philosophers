@@ -3,32 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 12:03:49 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/18 18:15:18 by user42           ###   ########.fr       */
+/*   Updated: 2022/04/21 14:49:36 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+static void	unauthorize_print(t_infos *i)
+{
+	pthread_mutex_lock(&i->authorize_print_mutex);
+	i->print_ok = 0;
+	pthread_mutex_unlock(&i->authorize_print_mutex);
+}
+
+static int	is_print_ok(t_infos *i)
+{
+	int	ret;
+
+	pthread_mutex_lock(&i->authorize_print_mutex);
+	ret = i->print_ok;
+	pthread_mutex_unlock(&i->authorize_print_mutex);
+	return (ret);
+}
+
 void	mutex_print(t_philo *philo, char *s)
 {
-	if (philo->i->end == 1)
+	if (end(philo))
 	{
 		pthread_mutex_lock(&philo->i->message);
-		printf("%8llu philo %d %s\n", actual_time(philo->i->t0), philo->pos, s); //POS + 1 POUR RENDU
-		philo->i->print_ok = 0;
+		if (is_print_ok(philo->i))
+		{
+			printf("%8llu philo", actual_time(philo->i->t0));
+			printf(" %d %s\n", philo->pos + 1, s);
+		}
+		unauthorize_print(philo->i);
 		pthread_mutex_unlock(&philo->i->message);
 	}
-	if (!philo->i->end)
+	if (!end(philo))
 	{
 		pthread_mutex_lock(&philo->i->message);
-		if (philo->i->print_ok)
-			printf("%8llu philo %d %s\n", actual_time(philo->i->t0), philo->pos, s); //POS + 1 POUR RENDU
+		if (!end(philo) && is_print_ok(philo->i))
+		{
+			printf("%8llu philo", actual_time(philo->i->t0));
+			printf(" %d %s\n", philo->pos + 1, s);
+		}
 		pthread_mutex_unlock(&philo->i->message);
 	}
-
 }
 
 t_ull	actual_time(t_ull t0)

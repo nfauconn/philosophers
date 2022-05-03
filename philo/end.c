@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   end.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 17:17:51 by user42            #+#    #+#             */
-/*   Updated: 2022/04/18 18:25:09 by user42           ###   ########.fr       */
+/*   Updated: 2022/04/20 17:07:20 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,15 @@ void	free_and_destroy(t_infos *i, t_philo *philo)
 	index = 0;
 	while (index < i->nb_philo)
 	{
-/* 		pthread_mutex_unlock(&philo[index].fork);
- */		pthread_mutex_destroy(&philo[index].fork);
+		pthread_mutex_destroy(&philo[index].meal_count);
+		pthread_mutex_destroy(&philo[index].fork);
+		pthread_mutex_destroy(&philo[index].time);
 		index++;
 	}
 	pthread_mutex_destroy(&i->count_meals);
-	pthread_mutex_destroy(&i->end_mutex);
 	pthread_mutex_destroy(&i->message);
+	pthread_mutex_destroy(&i->authorize_print_mutex);
+	pthread_mutex_destroy(&i->end_mutex);
 	if (philo)
 		free(philo);
 }

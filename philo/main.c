@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nfauconn <nfauconn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 12:12:23 by nfauconn          #+#    #+#             */
-/*   Updated: 2022/04/18 14:30:40 by user42           ###   ########.fr       */
+/*   Updated: 2022/04/21 15:03:46 by nfauconn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,6 @@ int	main(int argc, char **argv)
 	philo = (t_philo *)malloc(sizeof(t_philo) * i.nb_philo);
 	if (!philo)
 		return (ft_error("philo * malloc failure"));
-/* 	i.forks = (int *)malloc(sizeof (int));
-	if (!i.forks)
-	{
-		free(philo);
-		return (ft_error("malloc failure"));
-	}
-	memset(i.forks, '0', i.nb_philo);
-	printf("forks[3] = %d\n", i.forks[3]); */
 	init_philo(&i, philo);
 	threads = (pthread_t *)malloc(sizeof(pthread_t) * (i.nb_philo + 1));
 	if (!threads)
