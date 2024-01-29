@@ -39,8 +39,6 @@ make
 
 - **Error handling and debugging**: To prevent unexpected program exits. `valgrind` and `fsanitize` to diagnose and fix issues efficiently
 
-- **Memory management and prevention of leaks**: Managed memory manually, including dynamic memory allocation and deallocation
-
 ## 📋 Project Instructions 📋
 
 ### Common Instructions
