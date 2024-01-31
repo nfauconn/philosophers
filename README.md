@@ -19,8 +19,8 @@ Learn threading process and mutexes by saving the dining philosophers problem.
 - Philosophers don’t speak with each other.
 - Philosophers don’t know if another philosopher is about to die.
 
-Program name | `philo` 
 --|--|
+Program name | `philo` 
 Language | C
 Turn in files | `Makefile`, `*.h`, `*.c`, in directory `philo/` 
 Makefile  | `NAME`, `all`, `clean`, `fclean`, `re` 
